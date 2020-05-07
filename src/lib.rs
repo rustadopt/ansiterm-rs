@@ -238,8 +238,14 @@
 #![warn(trivial_casts, trivial_numeric_casts)]
 #![warn(unused_extern_crates, unused_qualifications)]
 
-#[cfg(test)]
-doc_comment::doctest!("../README.md");
+#[cfg(target_os="windows")]
+extern crate winapi;
+#[cfg(doctest)]
+#[macro_use]
+extern crate doc_comment;
+
+#[cfg(doctest)]
+doctest!("../README.md");
 
 mod ansi;
 pub use crate::ansi::{Prefix, Infix, Suffix};
