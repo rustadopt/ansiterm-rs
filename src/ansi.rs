@@ -302,7 +302,7 @@ impl fmt::Display for Infix {
                 write!(f, "{}{}", RESET, self.1.prefix())
             },
             Difference::ResetHyperlink => {
-                let f: &mut fmt::Write = f;
+                let f: &mut dyn fmt::Write = f;
                 write!(f, "{}{}{}", RESET_HYPERLINK, RESET, self.1.prefix())
             },
             Difference::NoDifference => {
