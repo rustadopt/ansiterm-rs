@@ -1,19 +1,14 @@
-# rust-ansi-term [![ansi-term on crates.io](http://meritbadge.herokuapp.com/ansi-term)](https://crates.io/crates/ansi_term) [![Build status](https://img.shields.io/travis/ogham/rust-ansi-term/master.svg?style=flat)](https://travis-ci.org/ogham/rust-ansi-term) [![Build status](https://img.shields.io/appveyor/ci/ogham/rust-ansi-term/master.svg?style=flat&logo=AppVeyor&logoColor=silver)](https://ci.appveyor.com/project/ogham/rust-ansi-term) [![Coverage status](https://coveralls.io/repos/ogham/rust-ansi-term/badge.svg?branch=master&service=github)](https://coveralls.io/github/ogham/rust-ansi-term?branch=master)
+# Rustadopt community fork of rust-ansi-term by github.com/ogham
 
 This is a library for controlling colours and formatting, such as red bold text or blue underlined text, on ANSI terminals.
-
-### [View the Rustdoc](https://docs.rs/ansi_term/)
 
 
 # Installation
 
-This crate works with [Cargo](http://crates.io). Add the following to your `Cargo.toml` dependencies section:
+Disclaimer:
+This crate is still in development, and is not yet available on crates.io
 
-```toml
-[dependencies]
-ansi_term = "0.12"
-```
-
+#### We promise to keep the API stable, and not break anything that is already working in the original crate.
 
 ## Basic usage
 
