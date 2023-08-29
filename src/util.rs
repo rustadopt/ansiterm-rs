@@ -3,7 +3,7 @@ use std::ops::Deref;
 use crate::display::*;
 
 /// Return a substring of the given ANSIStrings sequence, while keeping the formatting.
-pub fn sub_string<'a>(start: usize, len: usize, strs: &ANSIStrings<'a>) -> Vec<ANSIString<'static>> {
+pub fn sub_string(start: usize, len: usize, strs: &ANSIStrings) -> Vec<ANSIString<'static>> {
     let mut vec = Vec::new();
     let mut pos = start;
     let mut len_rem = len;
@@ -15,7 +15,7 @@ pub fn sub_string<'a>(start: usize, len: usize, strs: &ANSIStrings<'a>) -> Vec<A
             pos -= frag_len;
             continue;
         }
-        if len_rem <= 0 {
+        if len_rem == 0 {
             break;
         }
 
@@ -40,7 +40,7 @@ pub fn unstyle(strs: &ANSIStrings) -> String {
     let mut s = String::new();
 
     for i in strs.0.iter() {
-        s += &i.deref();
+        s += i.deref();
     }
 
     s
