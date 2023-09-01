@@ -309,7 +309,7 @@ pub enum Colour {
     ///
     /// This is not necessarily the background colour, and using it as one may
     /// render the text hard to read on terminals with dark backgrounds.
-    BrightBlack,
+    DarkGray,
 
     /// Colour #9 (foreground code `91`, background code `101`).
     BrightRed,
@@ -333,7 +333,7 @@ pub enum Colour {
     ///
     /// As above, this is not necessarily the foreground colour, and may be
     /// hard to read on terminals with light backgrounds.
-    BrightWhite,
+    BrightGray,
 
     /// A colour number from 0 to 255, for use in 256-colour terminal
     /// environments.
@@ -355,6 +355,10 @@ pub enum Colour {
 
     /// A 24-bit RGB color, as specified by ISO-8613-3.
     RGB(u8, u8, u8),
+
+    /// Default colour (foreground code `39`, background code `49`).
+    // #[default]
+    Default,
 }
 
 
@@ -541,16 +545,17 @@ impl Colour {
             Self::Purple => Ok(5),
             Self::Cyan => Ok(6),
             Self::White => Ok(7),
-            Self::BrightBlack => Ok(8),
+            Self::DarkGray => Ok(8),
             Self::BrightRed => Ok(9),
             Self::BrightGreen => Ok(10),
             Self::BrightYellow => Ok(11),
             Self::BrightBlue => Ok(12),
             Self::BrightPurple => Ok(13),
             Self::BrightCyan => Ok(14),
-            Self::BrightWhite => Ok(15),
+            Self::BrightGray => Ok(15),
             Self::Fixed(idx) => Ok(idx),
-            Self::RGB(r, g, b) => Err((r, g, b))
+            Self::RGB(r, g, b) => Err((r, g, b)),
+            Self::Default => Ok(16),
         }
     }
 }
