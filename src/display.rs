@@ -3,10 +3,10 @@ use std::fmt;
 use std::io;
 use std::ops::Deref;
 
-use ansi::RESET;
-use difference::Difference;
-use style::{Style, Colour};
-use write::AnyWrite;
+use crate::ansi::RESET;
+use crate::difference::Difference;
+use crate::style::{Style, Colour};
+use crate::write::AnyWrite;
 
 
 /// An `ANSIGenericString` includes a generic string type and a `Style` to
