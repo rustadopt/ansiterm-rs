@@ -59,23 +59,17 @@ impl Style {
         // All the codes end with an `m`, because reasons.
         write!(f, "m")?;
 
-        if let Some(url) = self.hyperlink_url.as_deref() {
-            write!(f, "\x1B]8;;{}\x1B\\", url)?;
-        }
-
         Ok(())
     }
 
     /// Write any bytes that go *after* a piece of text to the given writer.
     fn write_suffix<W: AnyWrite + ?Sized>(&self, f: &mut W) -> Result<(), W::Error> {
         if self.is_plain() {
-            return Ok(());
+            Ok(())
         }
-        if self.hyperlink_url.is_some() {
-            write!(f, "{}", RESET_HYPERLINK)?;
+        else {
+            write!(f, "{}", RESET)
         }
-        write!(f, "{}", RESET)?;
-        Ok(())
     }
 }
 
@@ -83,8 +77,6 @@ impl Style {
 /// The code to send to reset all styles and return to `Style::default()`.
 pub static RESET: &str = "\x1B[0m";
 
-/// The code to reset hyperlinks.
-pub static RESET_HYPERLINK: &str = "\x1B]8;;\x1B\\";
 
 
 impl Colour {
@@ -143,7 +135,7 @@ impl Colour {
 /// `std::fmt` formatting without doing any extra allocation, and written to a
 /// string with the `.to_string()` method. For examples, see
 /// [`Style::prefix`](struct.Style.html#method.prefix).
-#[derive(Clone, Debug)]
+#[derive(Clone, Copy, Debug)]
 pub struct Prefix(Style);
 
 /// Like `ANSIString`, but only displays the difference between two
@@ -153,7 +145,7 @@ pub struct Prefix(Style);
 /// `std::fmt` formatting without doing any extra allocation, and written to a
 /// string with the `.to_string()` method. For examples, see
 /// [`Style::infix`](struct.Style.html#method.infix).
-#[derive(Clone, Debug)]
+#[derive(Clone, Copy, Debug)]
 pub struct Infix(Style, Style);
 
 /// Like `ANSIString`, but only displays the style suffix.
@@ -162,7 +154,7 @@ pub struct Infix(Style, Style);
 /// `std::fmt` formatting without doing any extra allocation, and written to a
 /// string with the `.to_string()` method. For examples, see
 /// [`Style::suffix`](struct.Style.html#method.suffix).
-#[derive(Clone, Debug)]
+#[derive(Clone, Copy, Debug)]
 pub struct Suffix(Style);
 
 
@@ -188,8 +180,8 @@ impl Style {
     /// assert_eq!("",
     ///            style.prefix().to_string());
     /// ```
-    pub fn prefix(&self) -> Prefix {
-        Prefix(self.clone())
+    pub fn prefix(self) -> Prefix {
+        Prefix(self)
     }
 
     /// The infix bytes between this style and `next` style. These are the bytes
@@ -203,18 +195,18 @@ impl Style {
     ///
     /// let style = Style::default().bold();
     /// assert_eq!("\x1b[32m",
-    ///            style.infix(&Green.bold()).to_string());
+    ///            style.infix(Green.bold()).to_string());
     ///
     /// let style = Green.normal();
     /// assert_eq!("\x1b[1m",
-    ///            style.infix(&Green.bold()).to_string());
+    ///            style.infix(Green.bold()).to_string());
     ///
     /// let style = Style::default();
     /// assert_eq!("",
-    ///            style.infix(&style).to_string());
+    ///            style.infix(style).to_string());
     /// ```
-    pub fn infix(&self, next: &Style) -> Infix {
-        Infix(self.clone(), next.clone())
+    pub fn infix(self, next: Style) -> Infix {
+        Infix(self, next)
     }
 
     /// The suffix for this style. These are the bytes that tell the terminal
@@ -237,8 +229,8 @@ impl Style {
     /// assert_eq!("",
     ///            style.suffix().to_string());
     /// ```
-    pub fn suffix(&self) -> Suffix {
-        Suffix(self.clone())
+    pub fn suffix(self) -> Suffix {
+        Suffix(self)
     }
 }
 
@@ -317,10 +309,6 @@ impl fmt::Display for Infix {
             Difference::Reset => {
                 let f: &mut dyn fmt::Write = f;
                 write!(f, "{}{}", RESET, self.1.prefix())
-            },
-            Difference::ResetHyperlink => {
-                let f: &mut dyn fmt::Write = f;
-                write!(f, "{}{}{}", RESET_HYPERLINK, RESET, self.1.prefix())
             },
             Difference::NoDifference => {
                 Ok(())   // nothing to write
@@ -470,31 +458,15 @@ mod test {
     test!(reverse:               Style::new().reverse();            "hi" => "\x1B[7mhi\x1B[0m");
     test!(hidden:                Style::new().hidden();             "hi" => "\x1B[8mhi\x1B[0m");
     test!(stricken:              Style::new().strikethrough();      "hi" => "\x1B[9mhi\x1B[0m");
-    test!(hyperlink_plain:       Style::new().hyperlink("url");     "hi" => "\x1B[m\x1B]8;;url\x1B\\hi\x1B]8;;\x1B\\\x1B[0m");
-    test!(hyperlink_color:       Blue.hyperlink("url");             "hi" => "\x1B[34m\x1B]8;;url\x1B\\hi\x1B]8;;\x1B\\\x1B[0m");
-    test!(hyperlink_style:       Blue.underline().hyperlink("url"); "hi" => "\x1B[4;34m\x1B]8;;url\x1B\\hi\x1B]8;;\x1B\\\x1B[0m");
     test!(brightgreen:              BrightGreen;                       "hi" => "\x1B[92mhi\x1B[0m");
     test!(brightred_on_brightblue:  BrightRed.on(BrightBlue);          "hi" => "\x1B[104;91mhi\x1B[0m");
 
     #[test]
     fn test_infix() {
-        assert_eq!(Style::new().dimmed().infix(&Style::new()).to_string(), "\x1B[0m");
-        assert_eq!(White.dimmed().infix(&White.normal()).to_string(), "\x1B[0m\x1B[37m");
-        assert_eq!(White.normal().infix(&White.bold()).to_string(), "\x1B[1m");
-        assert_eq!(White.normal().infix(&Blue.normal()).to_string(), "\x1B[34m");
-        assert_eq!(Blue.bold().infix(&Blue.bold()).to_string(), "");
-    }
-
-    #[test]
-    fn test_infix_hyperlink() {
-        assert_eq!(Blue.hyperlink("url1").infix(&Style::new()).to_string(), "\x1B]8;;\x1B\\\x1B[0m");
-        assert_eq!(Blue.hyperlink("url1").infix(&Red.normal()).to_string(), "\x1B]8;;\x1B\\\x1B[0m\x1B[31m");
-        assert_eq!(Blue.normal().infix(&Red.hyperlink("url2")).to_string(), "\x1B[31m\x1B]8;;url2\x1B\\");
-        assert_eq!(Blue.hyperlink("url1").infix(&Red.hyperlink("url2")).to_string(), "\x1B[31m\x1B]8;;url2\x1B\\");
-        assert_eq!(Blue.underline().hyperlink("url1").infix(&Red.italic().hyperlink("url2")).to_string(), "\x1B[0m\x1B[3;31m\x1B]8;;url2\x1B\\");
-
-        assert_eq!(Style::new().hyperlink("url1").infix(&Style::new().hyperlink("url1")).to_string(), "");
-        assert_eq!(Blue.hyperlink("url1").infix(&Red.hyperlink("url1")).to_string(), "\x1B[31m");
-        assert_eq!(Blue.underline().hyperlink("url1").infix(&Red.underline().hyperlink("url1")).to_string(), "\x1B[31m");
+        assert_eq!(Style::new().dimmed().infix(Style::new()).to_string(), "\x1B[0m");
+        assert_eq!(White.dimmed().infix(White.normal()).to_string(), "\x1B[0m\x1B[37m");
+        assert_eq!(White.normal().infix(White.bold()).to_string(), "\x1B[1m");
+        assert_eq!(White.normal().infix(Blue.normal()).to_string(), "\x1B[34m");
+        assert_eq!(Blue.bold().infix(Blue.bold()).to_string(), "");
     }
 }
