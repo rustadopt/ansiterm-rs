@@ -488,6 +488,35 @@ impl Colour {
     pub fn on(self, background: Colour) -> Style {
         Style { foreground: Some(self), background: Some(background), .. Style::default() }
     }
+    
+    /// Returns index in 256-colour ANSI palette or red, green and blue
+    /// components of the colour.
+    ///
+    /// Variants `Black` through `White` are treated as indexes 0 through 7.
+    /// Variant `Fixed` returns the index stored in it.  Lastly, `RGB` variant
+    /// is returned as a three-element tuple.
+    pub fn into_index(self) -> Result<u8, (u8, u8, u8)> {
+        match self {
+            Self::Black => Ok(0),
+            Self::Red => Ok(1),
+            Self::Green => Ok(2),
+            Self::Yellow => Ok(3),
+            Self::Blue => Ok(4),
+            Self::Purple => Ok(5),
+            Self::Cyan => Ok(6),
+            Self::White => Ok(7),
+            Self::BrightBlack => Ok(8),
+            Self::BrightRed => Ok(9),
+            Self::BrightGreen => Ok(10),
+            Self::BrightYellow => Ok(11),
+            Self::BrightBlue => Ok(12),
+            Self::BrightPurple => Ok(13),
+            Self::BrightCyan => Ok(14),
+            Self::BrightWhite => Ok(15),
+            Self::Fixed(idx) => Ok(idx),
+            Self::RGB(r, g, b) => Err((r, g, b))
+        }
+    }
 }
 
 impl From<Colour> for Style {
