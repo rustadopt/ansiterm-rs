@@ -3,7 +3,7 @@ use std::fmt;
 use std::io;
 use std::ops::Deref;
 
-use crate::ansi::{RESET, RESET_HYPERLINK};
+use crate::ansi::RESET;
 use crate::difference::Difference;
 use crate::style::{Style, Colour};
 use crate::write::AnyWrite;
@@ -35,7 +35,7 @@ impl<'a, S: 'a + ToOwned + ?Sized> Clone for ANSIGenericString<'a, S>
 where <S as ToOwned>::Owned: fmt::Debug {
     fn clone(&self) -> ANSIGenericString<'a, S> {
         ANSIGenericString {
-            style: self.style.clone(),
+            style: self.style,
             string: self.string.clone(),
         }
     }
@@ -161,12 +161,12 @@ impl Style {
 
     /// Paints the given text with this colour, returning an ANSI string.
     #[must_use]
-    pub fn paint<'a, I, S: 'a + ToOwned + ?Sized>(&self, input: I) -> ANSIGenericString<'a, S>
+    pub fn paint<'a, I, S: 'a + ToOwned + ?Sized>(self, input: I) -> ANSIGenericString<'a, S>
     where I: Into<Cow<'a, S>>,
           <S as ToOwned>::Owned: fmt::Debug {
         ANSIGenericString {
             string: input.into(),
-            style:  self.clone(),
+            style:  self,
         }
     }
 }
@@ -258,19 +258,19 @@ where <S as ToOwned>::Owned: fmt::Debug, &'a S: AsRef<[u8]> {
             match Difference::between(&window[0].style, &window[1].style) {
                 ExtraStyles(style) => write!(w, "{}", style.prefix())?,
                 Reset              => write!(w, "{}{}", RESET, window[1].style.prefix())?,
-                ResetHyperlink     => {
-                    write!(w, "{}{}{}", RESET_HYPERLINK, RESET, window[1].style.prefix())?;
-                }
                 NoDifference       => {/* Do nothing! */},
             }
 
             w.write_str(&window[1].string)?;
         }
 
-        // Write any final reset strings needed after all of the ANSIStrings
-        // have been written.
+        // Write the final reset string after all of the ANSIStrings have been
+        // written, *except* if the last one has no styles, because it would
+        // have already been written by this point.
         if let Some(last) = self.0.last() {
-            write!(w, "{}", last.style.suffix())?;
+            if !last.style.is_plain() {
+                write!(w, "{}", RESET)?;
+            }
         }
 
         Ok(())
