@@ -26,8 +26,12 @@ impl Style {
 
         {
             let mut write_char = |c| {
-                if written_anything { write!(f, ";")?; }
+                if written_anything {
+                    write!(f, ";")?;
+                }
                 written_anything = true;
+                #[cfg(feature = "gnu_legacy")]
+                write!(f, "0")?;
                 write!(f, "{}", c)?;
                 Ok(())
             };
@@ -90,15 +94,16 @@ impl Colour {
             Colour::Purple     => write!(f, "35"),
             Colour::Cyan       => write!(f, "36"),
             Colour::White      => write!(f, "37"),
+            Colour::Default    => write!(f, "39"),
 
-            Colour::BrightBlack      => write!(f, "90"),
+            Colour::DarkGray         => write!(f, "90"),
             Colour::BrightRed        => write!(f, "91"),
             Colour::BrightGreen      => write!(f, "92"),
             Colour::BrightYellow     => write!(f, "93"),
             Colour::BrightBlue       => write!(f, "94"),
             Colour::BrightPurple     => write!(f, "95"),
             Colour::BrightCyan       => write!(f, "96"),
-            Colour::BrightWhite      => write!(f, "97"),
+            Colour::BrightGray       => write!(f, "97"),
             Colour::Fixed(num) => write!(f, "38;5;{}", &num),
             Colour::RGB(r,g,b) => write!(f, "38;2;{};{};{}", &r, &g, &b),
         }
@@ -114,14 +119,16 @@ impl Colour {
             Colour::Purple     => write!(f, "45"),
             Colour::Cyan       => write!(f, "46"),
             Colour::White      => write!(f, "47"),
-            Colour::BrightBlack      => write!(f, "100"),
+            Colour::Default    => write!(f, "49"),
+
+            Colour::DarkGray         => write!(f, "100"),
             Colour::BrightRed        => write!(f, "101"),
             Colour::BrightGreen      => write!(f, "102"),
             Colour::BrightYellow     => write!(f, "103"),
             Colour::BrightBlue       => write!(f, "104"),
             Colour::BrightPurple     => write!(f, "105"),
             Colour::BrightCyan       => write!(f, "106"),
-            Colour::BrightWhite      => write!(f, "107"),
+            Colour::BrightGray      => write!(f, "107"),
             Colour::Fixed(num) => write!(f, "48;5;{}", &num),
             Colour::RGB(r,g,b) => write!(f, "48;2;{};{};{}", &r, &g, &b),
         }
