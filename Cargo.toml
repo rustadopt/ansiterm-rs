@@ -2,13 +2,19 @@
 name = "ansiterm"
 description = "Library for ANSI terminal colours and styles (bold, underline)"
 edition = "2021"
-authors = [ "ogham@bsago.me", "Ryan Scheel (Havvy) <ryan.havvy@gmail.com>", "Josh Triplett <josh@joshtriplett.org>" ]
+authors = [
+    "Preston Thorpe <preston@unlockedlabs.org>",
+    "Sandro-Alessio Gierens <sandro@gierens.de>",
+    "Benjamin Sago <ogham@bsago.me>",
+    "Ryan Scheel (Havvy) <ryan.havvy@gmail.com>",
+    "Josh Triplett <josh@joshtriplett.org>"
+    ]
 documentation = "https://docs.rs/ansiterm"
-homepage = "https://github.com/ogham/rust-ansi-term"
+homepage = "https://github.com/rustadopt/ansiterm-rs"
 license = "MIT"
 readme = "README.md"
-version = "0.12.1"
-repository = "https://github.com/ogham/rust-ansi-term"
+version = "0.12.2"
+repository = "https://github.com/rustadopt/ansiterm-rs"
 
 [lib]
 name = "ansiterm"
