@@ -1,5 +1,5 @@
-extern crate ansi_term;
-use ansi_term::{Style, Colour};
+extern crate ansiterm;
+use ansiterm::{Style, Colour};
 
 // This example prints out a colour gradient in a grid by calculating each
 // character’s red, green, and blue components, and using 24-bit colour codes

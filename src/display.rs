@@ -25,7 +25,7 @@ where <S as ToOwned>::Owned: fmt::Debug {
 /// # Examples
 ///
 /// ```
-/// use ansi_term::ANSIString;
+/// use ansiterm::ANSIString;
 ///
 /// let plain_string = ANSIString::from("a plain string");
 /// let clone_string = plain_string.clone();
@@ -73,15 +73,15 @@ where <S as ToOwned>::Owned: fmt::Debug {
 /// # Examples
 ///
 /// ```
-/// use ansi_term::ANSIString;
-/// use ansi_term::Colour::Red;
+/// use ansiterm::ANSIString;
+/// use ansiterm::Colour::Red;
 ///
 /// let red_string = Red.paint("a red string");
 /// println!("{}", red_string);
 /// ```
 ///
 /// ```
-/// use ansi_term::ANSIString;
+/// use ansiterm::ANSIString;
 ///
 /// let plain_string = ANSIString::from("a plain string");
 /// assert_eq!(&*plain_string, "a plain string");
@@ -183,7 +183,7 @@ impl Colour {
     /// to get blue text.
     ///
     /// ```
-    /// use ansi_term::Colour::Blue;
+    /// use ansiterm::Colour::Blue;
     /// println!("{}", Blue.paint("da ba dee"));
     /// ```
     #[must_use]

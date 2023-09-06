@@ -173,7 +173,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::{Style, Colour::Blue};
+    /// use ansiterm::{Style, Colour::Blue};
     ///
     /// let style = Style::default().bold();
     /// assert_eq!("\x1b[1m",
@@ -198,7 +198,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::{Style, Colour::Green};
+    /// use ansiterm::{Style, Colour::Green};
     ///
     /// let style = Style::default().bold();
     /// assert_eq!("\x1b[32m",
@@ -222,7 +222,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::{Style, Colour::Green};
+    /// use ansiterm::{Style, Colour::Green};
     ///
     /// let style = Style::default().bold();
     /// assert_eq!("\x1b[0m",
@@ -252,7 +252,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour::Green;
+    /// use ansiterm::Colour::Green;
     ///
     /// assert_eq!("\x1b[0m",
     ///            Green.suffix().to_string());
@@ -270,7 +270,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour::{Red, Yellow};
+    /// use ansiterm::Colour::{Red, Yellow};
     ///
     /// assert_eq!("\x1b[33m",
     ///            Red.infix(Yellow).to_string());
@@ -287,7 +287,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour::Purple;
+    /// use ansiterm::Colour::Purple;
     ///
     /// assert_eq!("\x1b[0m",
     ///            Purple.suffix().to_string());
@@ -344,7 +344,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// assert_eq!(Colour::Fixed( 16), Colour::approx_rgb(  0,   0,   0));
     /// assert_eq!(Colour::Fixed( 16), Colour::approx_rgb(  0,   1,   2));
@@ -364,7 +364,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// assert_eq!(Colour::Red,        Colour::Red.into_256());
     /// assert_eq!(Colour::Fixed( 11), Colour::Fixed(11).into_256());
@@ -398,7 +398,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// assert_eq!((  0,   0,   0), Colour::Fixed( 16).into_rgb());
     /// assert_eq!(( 95, 135, 175), Colour::Fixed( 67).into_rgb());

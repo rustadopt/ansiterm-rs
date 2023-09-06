@@ -1,9 +1,9 @@
 [package]
-name = "ansi_term"
+name = "ansiterm"
 description = "Library for ANSI terminal colours and styles (bold, underline)"
 edition = "2021"
 authors = [ "ogham@bsago.me", "Ryan Scheel (Havvy) <ryan.havvy@gmail.com>", "Josh Triplett <josh@joshtriplett.org>" ]
-documentation = "https://docs.rs/ansi_term"
+documentation = "https://docs.rs/ansiterm"
 homepage = "https://github.com/ogham/rust-ansi-term"
 license = "MIT"
 readme = "README.md"
@@ -11,7 +11,7 @@ version = "0.12.1"
 repository = "https://github.com/ogham/rust-ansi-term"
 
 [lib]
-name = "ansi_term"
+name = "ansiterm"
 
 [features]
 derive_serde_style = ["serde"]

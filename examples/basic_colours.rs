@@ -1,5 +1,5 @@
-extern crate ansi_term;
-use ansi_term::{Style, Colour::*};
+extern crate ansiterm;
+use ansiterm::{Style, Colour::*};
 
 // This example prints out the 16 basic colours.
 

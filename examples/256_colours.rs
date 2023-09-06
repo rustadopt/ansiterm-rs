@@ -1,5 +1,5 @@
-extern crate ansi_term;
-use ansi_term::Colour;
+extern crate ansiterm;
+use ansiterm::Colour;
 
 // This example prints out the 256 colours.
 // They're arranged like this:

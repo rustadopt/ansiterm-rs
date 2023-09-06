@@ -19,7 +19,7 @@
 //! here’s how to get some red text:
 //!
 //! ```
-//! use ansi_term::Colour::Red;
+//! use ansiterm::Colour::Red;
 //!
 //! println!("This is in red: {}", Red.paint("a red string"));
 //! ```
@@ -34,7 +34,7 @@
 //! [`ANSIString`] to a string as you would any other `Display` value:
 //!
 //! ```
-//! use ansi_term::Colour::Red;
+//! use ansiterm::Colour::Red;
 //!
 //! let red_string = Red.paint("a red string").to_string();
 //! ```
@@ -49,7 +49,7 @@
 //! property set. For example:
 //!
 //! ```
-//! use ansi_term::Style;
+//! use ansiterm::Style;
 //!
 //! println!("How about some {} and {}?",
 //!          Style::new().bold().paint("bold"),
@@ -61,7 +61,7 @@
 //! an empty `Style` value:
 //!
 //! ```
-//! use ansi_term::Colour::{Blue, Yellow};
+//! use ansiterm::Colour::{Blue, Yellow};
 //!
 //! println!("Demonstrating {} and {}!",
 //!          Blue.bold().paint("blue bold"),
@@ -79,8 +79,8 @@
 //! You can do this using the [`fg`] method:
 //!
 //! ```
-//! use ansi_term::Style;
-//! use ansi_term::Colour::{Blue, Cyan, Yellow};
+//! use ansiterm::Style;
+//! use ansiterm::Colour::{Blue, Cyan, Yellow};
 //!
 //! println!("Yellow on blue: {}", Style::new().on(Blue).fg(Yellow).paint("yow!"));
 //! println!("Also yellow on blue: {}", Cyan.on(Blue).fg(Yellow).paint("zow!"));
@@ -95,8 +95,8 @@
 //! want to have a style with *nothing* set.
 //!
 //! ```
-//! use ansi_term::Style;
-//! use ansi_term::Colour::Red;
+//! use ansiterm::Style;
+//! use ansiterm::Colour::Red;
 //!
 //! Red.normal().paint("yet another red string");
 //! Style::default().paint("a completely regular string");
@@ -110,7 +110,7 @@
 //! included wherever you would use a `Colour`:
 //!
 //! ```
-//! use ansi_term::Colour::Fixed;
+//! use ansiterm::Colour::Fixed;
 //!
 //! Fixed(134).paint("A sort of light purple");
 //! Fixed(221).on(Fixed(124)).paint("Mustard in the ketchup");
@@ -125,7 +125,7 @@
 //! which takes separate `u8` arguments for red, green, and blue:
 //!
 //! ```
-//! use ansi_term::Colour::RGB;
+//! use ansiterm::Colour::RGB;
 //!
 //! RGB(70, 130, 180).paint("Steel blue");
 //! ```
@@ -150,8 +150,8 @@
 //! red bold text inside some red, but not bold, brackets:
 //!
 //! ```
-//! use ansi_term::Colour::Red;
-//! use ansi_term::{ANSIString, ANSIStrings};
+//! use ansiterm::Colour::Red;
+//! use ansiterm::{ANSIString, ANSIStrings};
 //!
 //! let some_value = format!("{:b}", 42);
 //! let strings: &[ANSIString<'static>] = &[
@@ -182,7 +182,7 @@
 //! implements [`Write`]:
 //!
 //! ```
-//! use ansi_term::Colour::Green;
+//! use ansiterm::Colour::Green;
 //!
 //! Green.paint("user data".as_bytes()).write_to(&mut std::io::stdout()).unwrap();
 //! ```
@@ -191,8 +191,8 @@
 //! [`ANSIByteString`] values with minimal escape sequences:
 //!
 //! ```
-//! use ansi_term::Colour::Green;
-//! use ansi_term::ANSIByteStrings;
+//! use ansiterm::Colour::Green;
+//! use ansiterm::ANSIByteStrings;
 //!
 //! ANSIByteStrings(&[
 //!     Green.paint("user data 1\n".as_bytes()),
@@ -229,7 +229,7 @@
 //! [`fg`]: struct.Style.html#method.fg
 //! [`on`]: struct.Style.html#method.on
 
-#![crate_name = "ansi_term"]
+#![crate_name = "ansiterm"]
 #![crate_type = "rlib"]
 #![crate_type = "dylib"]
 

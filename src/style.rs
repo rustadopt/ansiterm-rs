@@ -4,7 +4,7 @@
 /// # Examples
 ///
 /// ```
-/// use ansi_term::{Style, Colour};
+/// use ansiterm::{Style, Colour};
 ///
 /// let style = Style::new().bold().on(Colour::Black);
 /// println!("{}", style.paint("Bold on black"));
@@ -51,7 +51,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Style;
+    /// use ansiterm::Style;
     ///
     /// let style = Style::new();
     /// println!("{}", style.paint("hi"));
@@ -65,7 +65,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Style;
+    /// use ansiterm::Style;
     ///
     /// let style = Style::new().bold();
     /// println!("{}", style.paint("hey"));
@@ -79,7 +79,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Style;
+    /// use ansiterm::Style;
     ///
     /// let style = Style::new().dimmed();
     /// println!("{}", style.paint("sup"));
@@ -93,7 +93,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Style;
+    /// use ansiterm::Style;
     ///
     /// let style = Style::new().italic();
     /// println!("{}", style.paint("greetings"));
@@ -107,7 +107,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Style;
+    /// use ansiterm::Style;
     ///
     /// let style = Style::new().underline();
     /// println!("{}", style.paint("salutations"));
@@ -120,7 +120,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Style;
+    /// use ansiterm::Style;
     ///
     /// let style = Style::new().blink();
     /// println!("{}", style.paint("wazzup"));
@@ -134,7 +134,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Style;
+    /// use ansiterm::Style;
     ///
     /// let style = Style::new().reverse();
     /// println!("{}", style.paint("aloha"));
@@ -148,7 +148,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Style;
+    /// use ansiterm::Style;
     ///
     /// let style = Style::new().hidden();
     /// println!("{}", style.paint("ahoy"));
@@ -162,7 +162,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Style;
+    /// use ansiterm::Style;
     ///
     /// let style = Style::new().strikethrough();
     /// println!("{}", style.paint("yo"));
@@ -176,7 +176,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::{Style, Colour};
+    /// use ansiterm::{Style, Colour};
     ///
     /// let style = Style::new().fg(Colour::Yellow);
     /// println!("{}", style.paint("hi"));
@@ -190,7 +190,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::{Style, Colour};
+    /// use ansiterm::{Style, Colour};
     ///
     /// let style = Style::new().on(Colour::Blue);
     /// println!("{}", style.paint("eyyyy"));
@@ -205,7 +205,7 @@ impl Style {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Style;
+    /// use ansiterm::Style;
     ///
     /// assert_eq!(true,  Style::default().is_plain());
     /// assert_eq!(false, Style::default().bold().is_plain());
@@ -221,7 +221,7 @@ impl Default for Style {
     /// style returns the exact same text.
     ///
     /// ```
-    /// use ansi_term::Style;
+    /// use ansiterm::Style;
     /// assert_eq!(None,  Style::default().foreground);
     /// assert_eq!(None,  Style::default().background);
     /// assert_eq!(false, Style::default().is_bold);
@@ -349,7 +349,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// let style = Colour::Red.normal();
     /// println!("{}", style.paint("hi"));
@@ -364,7 +364,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// let style = Colour::Green.bold();
     /// println!("{}", style.paint("hey"));
@@ -379,7 +379,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// let style = Colour::Yellow.dimmed();
     /// println!("{}", style.paint("sup"));
@@ -394,7 +394,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// let style = Colour::Blue.italic();
     /// println!("{}", style.paint("greetings"));
@@ -409,7 +409,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// let style = Colour::Purple.underline();
     /// println!("{}", style.paint("salutations"));
@@ -424,7 +424,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// let style = Colour::Cyan.blink();
     /// println!("{}", style.paint("wazzup"));
@@ -439,7 +439,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// let style = Colour::Black.reverse();
     /// println!("{}", style.paint("aloha"));
@@ -454,7 +454,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// let style = Colour::White.hidden();
     /// println!("{}", style.paint("ahoy"));
@@ -469,7 +469,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// let style = Colour::Fixed(244).strikethrough();
     /// println!("{}", style.paint("yo"));
@@ -484,7 +484,7 @@ impl Colour {
     /// # Examples
     ///
     /// ```
-    /// use ansi_term::Colour;
+    /// use ansiterm::Colour;
     ///
     /// let style = Colour::RGB(31, 31, 31).on(Colour::White);
     /// println!("{}", style.paint("eyyyy"));
@@ -530,7 +530,7 @@ impl From<Colour> for Style {
     /// with the `From` trait.
     ///
     /// ```
-    /// use ansi_term::{Style, Colour};
+    /// use ansiterm::{Style, Colour};
     /// let green_foreground = Style::default().fg(Colour::Green);
     /// assert_eq!(green_foreground, Colour::Green.normal());
     /// assert_eq!(green_foreground, Colour::Green.into());

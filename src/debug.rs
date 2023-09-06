@@ -9,7 +9,7 @@ use crate::style::Style;
 /// `format!("{:#?}")`.
 ///
 /// ```
-/// use ansi_term::Colour::{Red, Blue};
+/// use ansiterm::Colour::{Red, Blue};
 ///
 /// assert_eq!(
 ///     "Style { fg(Red), on(Blue), bold, italic }",
