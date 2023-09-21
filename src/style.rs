@@ -199,6 +199,36 @@ impl Style {
         Style { background: Some(background), .. *self }
     }
 
+    /// Returns a `Style` with `overlay` applied on top of it.
+    ///
+    /// The properties from the `overlay` with non-default values (`Some(…)` or `true`)
+    /// override the values of `self`.
+    /// 
+    /// # Examples
+    /// 
+    /// ```
+    /// use ansiterm::{Style, Colour};
+    /// 
+    /// let style = Style::new().fg(Colour::Blue).bold();
+    /// let overlay = Style::new().fg(Colour::Red).underline();
+    /// 
+    /// assert_eq!(Style::new().fg(Colour::Red).bold().underline(), style.overlay(&overlay));
+    /// ```
+    pub fn overlay(&self, overlay: &Style) -> Style {
+        Style {
+            foreground: overlay.foreground.or(self.foreground),
+            background: overlay.background.or(self.background),
+            is_bold: overlay.is_bold || self.is_bold,
+            is_dimmed: overlay.is_dimmed || self.is_dimmed,
+            is_italic: overlay.is_bold || self.is_italic,
+            is_underline: overlay.is_underline || self.is_underline,
+            is_blink: overlay.is_blink || self.is_blink,
+            is_reverse: overlay.is_reverse || self.is_reverse,
+            is_hidden: overlay.is_hidden || self.is_hidden,
+            is_strikethrough: overlay.is_strikethrough || self.is_strikethrough,
+        }
+    }
+
     /// Return true if this `Style` has no actual styles, and can be written
     /// without any control characters.
     ///
