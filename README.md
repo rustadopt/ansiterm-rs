@@ -9,7 +9,7 @@ Big shout-out to its creator [Benjamin Sago](https://github.com/ogham).
 # Installation
 
 Disclaimer:
-This crate is still in development, and is not yet available on crates.io
+This crate is still in development.
 
 #### We promise to keep the API stable, and not break anything that is already working in the original crate.
 
