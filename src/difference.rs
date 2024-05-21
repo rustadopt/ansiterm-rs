@@ -16,6 +16,7 @@ pub enum Difference {
 
     /// The before style is exactly the same as the after style, so no further
     /// control codes need to be printed.
+    #[allow(clippy::enum_variant_names)]
     NoDifference,
 }
 
