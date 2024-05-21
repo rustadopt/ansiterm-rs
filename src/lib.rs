@@ -263,6 +263,7 @@ pub use crate::display::*;
 mod write;
 
 mod windows;
+#[cfg(target_os="windows")]
 pub use crate::windows::*;
 
 mod util;
